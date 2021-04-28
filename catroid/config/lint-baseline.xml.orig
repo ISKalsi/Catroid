@@ -179,7 +179,35 @@
 
     <issue
         id="StaticFieldLeak"
+<<<<<<< HEAD
+        message="This `AsyncTask` class should be static or leaks might occur (org.catrobat.catroid.content.actions.ReadListFromDeviceAction.ReadTask)"
+        errorLine1=" private class ReadTask extends AsyncTask&lt;UserList, Void, Void> {"
+        errorLine2="               ~~~~~~~~">
+        <location
+            file="src/main/java/org/catrobat/catroid/content/actions/ReadListFromDeviceAction.java"
+            line="62"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (org.catrobat.catroid.content.actions.ReadVariableFromDeviceAction.ReadTask)"
+||||||| merged common ancestors
+        message="This `AsyncTask` class should be static or leaks might occur (org.catrobat.catroid.content.actions.ReadListFromDeviceAction.ReadTask)"
+        errorLine1=" private class ReadTask extends AsyncTask&lt;UserList, Void, Void> {"
+        errorLine2="               ~~~~~~~~">
+        <location
+            file="src\main\java\org\catrobat\catroid\content\actions\ReadListFromDeviceAction.java"
+            line="62"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (org.catrobat.catroid.content.actions.ReadVariableFromDeviceAction.ReadTask)"
+=======
         message="This `AsyncTask` class should be static or leaks might occur (org.catrobat.catroid.content.actions.ReadUserDataFromDeviceAction.ReadTask)"
+>>>>>>> CATROID-1075 Refactor ReadVariableFromDeviceAction to Kotlin
         errorLine1=" private class ReadTask extends AsyncTask&lt;UserVariable, Void, Void> {"
         errorLine2="               ~~~~~~~~">
         <location

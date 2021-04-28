@@ -67,18 +67,20 @@ public abstract class DeviceUserDataAccessor {
 	}
 
 	public boolean readUserData(UserData userData) {
-
 		Map deviceMap = readMapFromJson();
 
 		if (deviceMap == null) {
 			userData.reset();
+			Log.e(TAG, "device map null");
 			return false;
 		}
 
 		if (!deviceMap.containsKey(userData.getDeviceKey())) {
 			userData.reset();
+			Log.e(TAG, "device map doesn't contain key");
 			return false;
 		}
+
 		userData.setValue(deviceMap.get(userData.getDeviceKey()));
 		return true;
 	}
@@ -136,6 +138,8 @@ public abstract class DeviceUserDataAccessor {
 				Log.e(TAG, "Device Variable File corrupted!");
 				deviceFile.delete();
 			}
+
+			Log.e(TAG, e.getMessage());
 			return null;
 		}
 	}

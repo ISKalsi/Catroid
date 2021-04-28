@@ -20,7 +20,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.catrobat.catroid.content.actions
 
 import kotlinx.coroutines.CoroutineScope
@@ -30,26 +29,29 @@ import kotlinx.coroutines.withContext
 import org.catrobat.catroid.formulaeditor.UserData
 import org.catrobat.catroid.io.DeviceUserDataAccessor
 
-class WriteUserDataOnDeviceAction : AsynchronousAction() {
+class ReadUserDataFromDeviceAction : AsynchronousAction() {
     var userData: UserData<Any>? = null
     var deviceUserDataAccessor: DeviceUserDataAccessor? = null
-    private var writeActionFinished = false
+    private var readActionFinished = false
     private val scopeIO = CoroutineScope(Dispatchers.IO)
 
-    override fun initialize() {
-        writeActionFinished = false
-        userData?.let { executeWriteTask(it) }
+    override fun act(delta: Float): Boolean {
+        return if (userData == null) {
+            true
+        } else super.act(delta)
     }
 
-    override fun isFinished(): Boolean = writeActionFinished || userData == null
+    override fun initialize() {
+        readActionFinished = false
+        userData?.let { executeReadTask(it) }
+    }
 
-    private fun executeWriteTask(userData: UserData<Any>) {
+    override fun isFinished(): Boolean = readActionFinished
+
+    private fun executeReadTask(userData: UserData<Any>) {
         scopeIO.launch {
-            deviceUserDataAccessor?.writeUserData(userData)
-
-            withContext(Dispatchers.Main) {
-                writeActionFinished = true
-            }
+            deviceUserDataAccessor?.readUserData(userData)
+            withContext(Dispatchers.Main) { readActionFinished = true }
         }
     }
 }
